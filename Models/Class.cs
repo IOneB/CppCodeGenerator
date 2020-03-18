@@ -14,6 +14,10 @@ namespace CodeGenerator.Models
 
         public StructType Type { get; set; }
 
+        public bool HasConstructor { get; set; }
+
         public List<Field> Fields { get; set; }
+
+        public bool HasFields => Fields != null && Fields.Count > 0;
     }
 }

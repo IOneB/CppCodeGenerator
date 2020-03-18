@@ -6,8 +6,8 @@
 }
 
 <style>
-    td{
-        padding:0 15px;
+    td {
+        padding:15px;
     }
 
     .margin-bottom{
@@ -24,12 +24,22 @@
                 <input value="Сгенерировать код!" type="button" id="generate-button" />
             </div>
         </div>
-        <div class="row col-lg-12 margin-bottom">
+        <div class="form-row col-lg-12 margin-bottom">
             <div class="col-lg-3">
-                <label for="class-name">Наименование класса</label>
+                <label for="class-name">Наименование структуры</label>
             </div>
             <div class="col-lg-3">
-                <input type="text" id="class-name" placeholder="Класс" />
+                <input type="text" id="class-name" placeholder="Имя структуры" />
+            </div>
+            <div class="col-lg-1">
+                <label for="class-type">Тип</label>
+            </div>
+            <div class="col-lg-2">
+                <select style="width: 100%;" id="class-type" asp-items="Html.GetEnumSelectList<StructType>()"></select>
+            </div>
+            <div class="form-check col-lg-3">
+                    <input class="form-check-input" style="margin-left: -15px" type="checkbox" checked id="class-constructor">
+                    <label class="form-check-label" for="class-constructor">Конструктор</label>
             </div>
         </div>
         <div class="row col-lg-12 margin-bottom">
@@ -80,7 +90,7 @@
                 $.ajax({
                     url: '@Url.Action("Generate")',
                     type: "post",
-                    data: { name: $('#class-name').val(), type: 0, fields: data },
+                    data: { name: $('#class-name').val(), hasConstructor: $('#class-constructor').prop('checked'), type: $('#class-type').val(), fields: data },
                     success: function (response) { $('#success-log').text(response); console.log(response);}
                 });
             });
